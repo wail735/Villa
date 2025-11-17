@@ -98,7 +98,7 @@ export default function Ideal() {
         {/* Contenu principal */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={selected} // 👈 TRÈS IMPORTANT pour que l’animation se relance
+            key={selected} 
             className="flex flex-col lg:flex-row items-start gap-10"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

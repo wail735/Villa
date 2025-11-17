@@ -34,7 +34,6 @@ export default function Propertie() {
         ))}
       </div>
 
-      {/* يولي يظهر كامل داخل Properties */}
       <Properties activeBtn={activeBtn} />
     </div>
   );

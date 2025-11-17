@@ -25,7 +25,7 @@ import {
 } from "../Context/modalcontext";
 import { motion, AnimatePresence } from "framer-motion";
 
-// 🔹 Propriétés par défaut (affichées au premier chargement)
+
 const initialProperties = {
   1: {
     image: "./assets/images/property-01.jpg",
@@ -163,7 +163,7 @@ export default function Properties({ activeBtn }) {
   const handleCloseModalDelete = () => setOpenModalDelete(false);
 
   const addProperty = (newData) => {
-    const newKey = Date.now().toString(); // 👈 تأكد أن المفتاح سترينغ
+    const newKey = Date.now().toString(); 
     const newProperty = {
       image: newData.image || "./assets/images/default.jpg",
       boxe: [

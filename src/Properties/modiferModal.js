@@ -94,7 +94,7 @@ export default function ModifierModal({
               if (file) {
                 const reader = new FileReader();
                 reader.onloadend = () => {
-                  setData({ ...data, image: reader.result }); // Image codée en base64
+                  setData({ ...data, image: reader.result }); 
                 };
                 reader.readAsDataURL(file);
               }

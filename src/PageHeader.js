@@ -29,7 +29,6 @@ export default function PageHeader() {
         className="w-full h-[250px] sm:h-[350px] object-cover"
       />
 
-      {/* المسار (HOME / PAGE) */}
       <Typography
         style={{
           position: "absolute",
@@ -47,7 +46,6 @@ export default function PageHeader() {
           : `HOME / ${pageTitle.toUpperCase()}`}
       </Typography>
 
-      {/* اسم الصفحة الكبير */}
       <Typography
         style={{
           position: "absolute",

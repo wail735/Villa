@@ -54,7 +54,7 @@ export default function BasicCard() {
         boxShadow: 3,
         p: 2,
         backgroundColor: "#fff",
-        transition: "all 0.3s ease-in-out", // Smooth transition
+        transition: "all 0.3s ease-in-out",
         "&:hover": {
           boxShadow: 6,
           transform: "scale(1.03)",

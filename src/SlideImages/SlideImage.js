@@ -4,7 +4,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-// Données des slides
 const slides = [
   {
     image: "/assets/images/banner-01.jpg",
@@ -26,7 +25,6 @@ const slides = [
   },
 ];
 
-// Composant pour la flèche suivante
 const NextArrow = ({ onClick }) => (
   <button
     className="absolute right-4 top-1/2 z-20 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg hover:bg-gray-200 focus:outline-none"
@@ -37,7 +35,6 @@ const NextArrow = ({ onClick }) => (
   </button>
 );
 
-// Composant pour la flèche précédente
 const PrevArrow = ({ onClick }) => (
   <button
     className="absolute left-4 top-1/2 z-20 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg hover:bg-gray-200 focus:outline-none"
@@ -49,7 +46,6 @@ const PrevArrow = ({ onClick }) => (
 );
 
 export default function SlideImage() {
-  // Configuration du slider
   const settings = {
     dots: true,
     infinite: true,

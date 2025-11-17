@@ -28,7 +28,7 @@ export default function Featured() {
               width: { xs: "100%", md: "34%" },
               display: "flex",
               flexDirection: "column",
-              justifyContent: "flex-start", // Aligné en haut
+              justifyContent: "flex-start", 
             }}
           >
             {/* Titre */}
