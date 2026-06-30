@@ -7,200 +7,297 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import CloseIcon from "@mui/icons-material/Close";
 import { Link, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
-const pages = ["Home", "Properties", "Property Details", "Contact Us"];
-const settings = ["Profile", "Account"];
+const pages = [
+  { label: "Home", path: "/" },
+  { label: "Properties", path: "/properties" },
+  { label: "Property Details", path: "/property-details" },
+  { label: "Contact Us", path: "/contact-us" },
+];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [scrolled, setScrolled] = React.useState(false);
   const location = useLocation();
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+  // Glassmorphism effect on scroll
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  const handleOpenNavMenu = (event) => setAnchorElNav(event.currentTarget);
+  const handleCloseNavMenu = () => setAnchorElNav(null);
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
-  const getPageNameFromPath = (path) => {
-    switch (path) {
-      case "/":
-        return "Home";
-      case "/properties":
-        return "Properties";
-      case "/property-details":
-        return "Property Details";
-      case "/contact-us":
-        return "Contact Us";
-      default:
-        return "";
-    }
-  };
-
-  const activePage = getPageNameFromPath(location.pathname);
+  const activePath = location.pathname;
 
   return (
-    <AppBar
-      position="static"
-      sx={{
-        backgroundColor: "#fff",
-        color: "#000",
-        boxShadow: "none",
-        margin: "20px",
-      }}
+    <motion.div
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      style={{ position: "sticky", top: 0, zIndex: 1200 }}
     >
-      <Container maxWidth="lg">
-        <Toolbar disableGutters>
-          {/* Logo grand écran */}
-          <Typography
-            variant="h4"
-            noWrap
-            component={Link}
-            to="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            Villa
-          </Typography>
+      <AppBar
+        position="static"
+        sx={{
+          backgroundColor: scrolled
+            ? "rgba(255, 255, 255, 0.92)"
+            : "rgba(255, 255, 255, 1)",
+          backdropFilter: scrolled ? "blur(20px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
+          color: "#0d0d0d",
+          boxShadow: scrolled
+            ? "0 4px 30px rgba(0, 0, 0, 0.08)"
+            : "0 1px 0 rgba(0,0,0,0.06)",
+          transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          borderBottom: "1px solid rgba(0,0,0,0.06)",
+        }}
+      >
+        <Container maxWidth="xl">
+          <Toolbar disableGutters sx={{ py: 1, minHeight: "70px" }}>
 
-          {/* Menu mobile */}
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="menu"
-              onClick={handleOpenNavMenu}
-              color="inherit"
+            {/* ── Logo Desktop ── */}
+            <Box
+              component={Link}
+              to="/"
+              sx={{
+                display: { xs: "none", md: "flex" },
+                alignItems: "center",
+                gap: 1,
+                textDecoration: "none",
+                mr: 4,
+              }}
             >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-              transformOrigin={{ vertical: "top", horizontal: "left" }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: "block", md: "none" } }}
-            >
-              {pages.map((page) => {
-                const path =
-                  page === "Home"
-                    ? "/"
-                    : `/${page.toLowerCase().replace(/ /g, "-")}`;
+              <Box
+                sx={{
+                  width: 38,
+                  height: 38,
+                  borderRadius: "10px",
+                  background: "linear-gradient(135deg, #ee4d2d, #c93d20)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0 4px 12px rgba(238,77,45,0.35)",
+                }}
+              >
+                <Typography
+                  sx={{
+                    color: "#fff",
+                    fontFamily: "'Playfair Display', serif",
+                    fontWeight: 800,
+                    fontSize: "1.2rem",
+                    lineHeight: 1,
+                  }}
+                >
+                  V
+                </Typography>
+              </Box>
+              <Box>
+                <Typography
+                  sx={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontWeight: 700,
+                    fontSize: "1.25rem",
+                    color: "#0d0d0d",
+                    letterSpacing: "-0.3px",
+                    lineHeight: 1,
+                  }}
+                >
+                  Villa
+                  <Box component="span" sx={{ color: "#ee4d2d" }}>Agency</Box>
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "0.6rem",
+                    color: "#9ca3af",
+                    letterSpacing: "2px",
+                    textTransform: "uppercase",
+                    lineHeight: 1,
+                  }}
+                >
+                  Luxury Real Estate
+                </Typography>
+              </Box>
+            </Box>
 
-                return (
+            {/* ── Mobile Hamburger ── */}
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="menu"
+                onClick={handleOpenNavMenu}
+                sx={{ color: "#0d0d0d" }}
+              >
+                {anchorElNav ? <CloseIcon /> : <MenuIcon />}
+              </IconButton>
+
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                transformOrigin={{ vertical: "top", horizontal: "left" }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                PaperProps={{
+                  sx: {
+                    mt: 1,
+                    borderRadius: "16px",
+                    boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
+                    border: "1px solid rgba(0,0,0,0.06)",
+                    minWidth: 220,
+                    py: 1,
+                  },
+                }}
+                sx={{ display: { xs: "block", md: "none" } }}
+              >
+                {pages.map((page) => (
                   <MenuItem
-                    key={page}
+                    key={page.label}
                     component={Link}
-                    to={path}
+                    to={page.path}
                     onClick={handleCloseNavMenu}
                     sx={{
-                      color: activePage === page ? "#ff6600" : "#000",
-                      fontWeight: activePage === page ? "bold" : "normal",
+                      py: 1.2,
+                      px: 3,
+                      fontFamily: "'Inter', sans-serif",
+                      fontWeight: activePath === page.path ? 700 : 500,
+                      color: activePath === page.path ? "#ee4d2d" : "#1a1a2e",
+                      borderLeft: activePath === page.path ? "3px solid #ee4d2d" : "3px solid transparent",
+                      transition: "all 0.2s ease",
                       "&:hover": {
-                        color: "#ff6600",
+                        color: "#ee4d2d",
+                        backgroundColor: "rgba(238,77,45,0.05)",
                       },
                     }}
                   >
-                    <Typography textAlign="center">{page}</Typography>
+                    {page.label}
                   </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+
+            {/* ── Logo Mobile ── */}
+            <Box
+              component={Link}
+              to="/"
+              sx={{
+                display: { xs: "flex", md: "none" },
+                alignItems: "center",
+                gap: 1,
+                textDecoration: "none",
+                flexGrow: 1,
+              }}
+            >
+              <Box
+                sx={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: "8px",
+                  background: "linear-gradient(135deg, #ee4d2d, #c93d20)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography
+                  sx={{ color: "#fff", fontFamily: "'Playfair Display', serif", fontWeight: 800, fontSize: "1rem" }}
+                >
+                  V
+                </Typography>
+              </Box>
+              <Typography
+                sx={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontWeight: 700,
+                  fontSize: "1.1rem",
+                  color: "#0d0d0d",
+                }}
+              >
+                Villa<Box component="span" sx={{ color: "#ee4d2d" }}>Agency</Box>
+              </Typography>
+            </Box>
+
+            {/* ── Desktop Menu Links ── */}
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" },
+                justifyContent: "center",
+                gap: 0.5,
+              }}
+            >
+              {pages.map((page) => {
+                const isActive = activePath === page.path;
+                return (
+                  <Button
+                    key={page.label}
+                    component={Link}
+                    to={page.path}
+                    sx={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontWeight: isActive ? 700 : 500,
+                      fontSize: "0.88rem",
+                      color: isActive ? "#ee4d2d" : "#1a1a2e",
+                      px: 2,
+                      py: 1,
+                      borderRadius: "50px",
+                      backgroundColor: isActive ? "rgba(238,77,45,0.08)" : "transparent",
+                      letterSpacing: "0.3px",
+                      transition: "all 0.25s ease",
+                      textTransform: "none",
+                      "&:hover": {
+                        color: "#ee4d2d",
+                        backgroundColor: "rgba(238,77,45,0.06)",
+                      },
+                    }}
+                  >
+                    {page.label}
+                  </Button>
                 );
               })}
-            </Menu>
-          </Box>
+            </Box>
 
-          {/* Logo petit écran */}
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-
-          {/* Menu desktop */}
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: "none", md: "flex" },
-              justifyContent: "center",
-              gap: "55px",
-            }}
-          >
-            {pages.map((page) => {
-              const path =
-                page === "Home"
-                  ? "/"
-                  : `/${page.toLowerCase().replace(/ /g, "-")}`;
-
-              return (
-                <Button
-                  key={page}
-                  component={Link}
-                  to={path}
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    my: 2,
-                    color: activePage === page ? "#ff6600" : "#000",
-                    fontWeight: activePage === page ? "bold" : "normal",
-                    borderBottom:
-                      activePage === page ? "2px solid #ff6600" : "none",
-                    transition: "color 0.3s, border-bottom 0.3s",
-                    "&:hover": {
-                      color: "#ff6600",
-                      borderBottom: "2px solid #ff6600",
-                    },
-                  }}
-                >
-                  {page}
-                </Button>
-              );
-            })}
-          </Box>
-
-          {/* Avatar */}
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User" src="/assets/images/profile-user.png" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{ vertical: "top", horizontal: "right" }}
-              transformOrigin={{ vertical: "top", horizontal: "right" }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+            {/* ── CTA Button ── */}
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Button
+                component={Link}
+                to="/contact-us"
+                variant="contained"
+                sx={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: 600,
+                  fontSize: "0.85rem",
+                  textTransform: "none",
+                  borderRadius: "50px",
+                  px: 2.5,
+                  py: 1,
+                  background: "linear-gradient(135deg, #ee4d2d, #c93d20)",
+                  boxShadow: "0 4px 15px rgba(238,77,45,0.35)",
+                  "&:hover": {
+                    background: "linear-gradient(135deg, #ff6b4a, #ee4d2d)",
+                    boxShadow: "0 6px 20px rgba(238,77,45,0.45)",
+                    transform: "translateY(-1px)",
+                  },
+                  transition: "all 0.25s ease",
+                }}
+              >
+                Get In Touch
+              </Button>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </motion.div>
   );
 }
 
