@@ -13,8 +13,8 @@
   --gray-100: #f3f4f6;
   --white: #ffffff;
   --gold: #c9a84c;
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
   --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
   --shadow-lg: 0 10px 40px rgba(0,0,0,0.15);
